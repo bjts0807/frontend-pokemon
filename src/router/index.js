@@ -41,6 +41,11 @@ const routes = [
     name: "users.profile",
     component: () => import("../views/users/ProfileComponent"),
   },
+  {
+    path: "/favourites/list",
+    name: "favourites.list",
+    component: () => import("../views/FavouritesComponent"),
+  },
 ]
 
 const router = createRouter({

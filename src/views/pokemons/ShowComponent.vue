@@ -17,7 +17,7 @@
                         <div class="card-body text-center">
                             <img :src="pokemon.sprites.other.dream_world.front_default" width="200"/>
                             <h2 class="mt-2 text-info" >{{pokemon.name}}</h2>
-                            <button class="btn btn-outline-danger btn-sm" @click="favourite();"><i class="fa fa-heart fa-2x"></i></button>
+                            <button class="btn btn-outline-danger btn-sm" @click="favourite();"><i class="fa fa-heart fa-2x"></i>Añadir a Favorito</button>
                         </div>
                     </div>
                 </div>
@@ -109,32 +109,38 @@ export default {
       },
       async favourite(){
         try{
-            const result = await Swal.fire({
-                title :  "¿Está seguro de marcar este pokemon como favorito?",
-                text : "",
-                showCancelButton : true,
-                showConfirmButton : true,
-                confirmButtonColor: "#1a73e8",
-                confirmButtonText : 'Sí',
-                cancelButtonText : 'No',
-                icon : "warning",
-                showLoaderOnConfirm : true,
-                preConfirm: async () => {
-                    try{
-                        let obj={
-                            url:this.url
+            const favourite_count =await favouriteService.search(this.url);
+            if(favourite_count.data>0){
+                await Swal.fire('Upss', 'Pokemon ya esta marcado como favorito', 'info');
+            }else{
+                const result = await Swal.fire({
+                    title :  "¿Está seguro de marcar este pokemon como favorito?",
+                    text : "",
+                    showCancelButton : true,
+                    showConfirmButton : true,
+                    confirmButtonColor: "#1a73e8",
+                    confirmButtonText : 'Sí',
+                    cancelButtonText : 'No',
+                    icon : "warning",
+                    showLoaderOnConfirm : true,
+                    preConfirm: async () => {
+                        try{
+                            let obj={
+                                url:this.url
+                            }
+                           
+                            await favouriteService.store(obj);
+                        }catch (e) {
+                            console.error(e);
+                            Swal.showValidationMessage('ha ocurrido un error al procesar la solicitud');
                         }
-                        await favouriteService.store(obj);
-                    }catch (e) {
-                        console.error(e);
-                        Swal.showValidationMessage('ha ocurrido un error al procesar la solicitud');
-                    }
-                },
-            });
-            if(result.isConfirmed){
-                await Swal.fire('Exíto', 'Pokemon marcado como favorito', 'success');
-                this.$router.push({name:'Dashboard'});
-            } 
+                    },
+                });
+                if(result.isConfirmed){
+                    await Swal.fire('Exíto', 'Pokemon marcado como favorito', 'success');
+                    this.$router.push({name:'Dashboard'});
+                } 
+            }
         }catch (e) {
             console.error(e);
         }
