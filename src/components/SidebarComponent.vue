@@ -15,7 +15,7 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :to="{name:'users.profile'}">
+            <router-link class="nav-link" :to="{name:'favourites.list'}">
               <i class="ti-heart menu-icon"></i>
               <span class="menu-title">Favoritos</span>
             </router-link>
