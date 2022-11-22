@@ -17,7 +17,7 @@
 import NavbarComponent from './components/NavbarComponent.vue';
 import SidebarComponent from './components/SidebarComponent.vue';
 import FooterComponent from './components/FooterComponent.vue';
-import { mapMutations, mapState } from "vuex";
+import { mapState } from "vuex";
 
 export default {
   name: 'App',
@@ -27,22 +27,12 @@ export default {
   async created() {
     await this.$store.dispatch("currentUser");
   },
-  methods: {
-    ...mapMutations(["toggleConfigurator", "navbarMinimize"])
-  },
+ 
   computed: {
     ...mapState([
-      "isRTL",
-      "color",
-      "isAbsolute",
-      "isNavFixed",
-      "navbarFixed",
-      "absolute",
       "showSidenav",
       "showNavbar",
-      "showFooter",
-      "showConfig",
-      "hideConfigButton"
+      "showFooter"
     ]),
     ...mapState(['is_logged', 'user']),
   },

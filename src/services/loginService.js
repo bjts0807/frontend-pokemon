@@ -16,8 +16,5 @@ export function logout(){
     return Service.post('/logout', null);
 }
 
-export function createUser(email, password){
-    return `${email} ${password}`
-}
 
 

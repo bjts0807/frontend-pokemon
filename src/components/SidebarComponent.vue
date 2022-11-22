@@ -24,12 +24,3 @@
       </nav>
     </div>
 </template>
-
-<script>
-import { mapState } from "vuex";
-  export default{
-    computed: {
-    ...mapState(["isRTL", "sidebarType", "isDarkMode"]),
-  },
-  }
-</script>

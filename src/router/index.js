@@ -21,12 +21,6 @@ const routes = [
     meta : {requiresLogin: true},
   },
   {
-    path: "/forms",
-    name: "forms.index",
-    component: () => import("../views/forms/IndexComponent"),
-   meta : {requiresLogin: true},
-  },
-  {
     path: "/register",
     name: "users.register",
     component: () => import("../views/RegisterComponent"),
